@@ -1,0 +1,28 @@
+{
+  "name": "cse340-course-repo",
+  "version": "1.0.0",
+  "description": "W01 Learning Activity Node.js",
+  "homepage": "https://github.com/eduardopinta93/cse340-course-repo#readme",
+  "bugs": {
+    "url": "https://github.com/eduardopinta93/cse340-course-repo/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eduardopinta93/cse340-course-repo.git"
+  },
+  "license": "ISC",
+  "author": "Jesus Eduardo Pinta Molina",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "ejs": "^5.0.2",
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
