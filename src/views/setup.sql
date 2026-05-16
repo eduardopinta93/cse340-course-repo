@@ -6,6 +6,32 @@ CREATE TABLE Organizations (
     logo_filename VARCHAR(255) NOT NULL
 );
 
+INSERT INTO Organizations (
+    name,
+    description,
+    contact_email,
+    logo_filename
+)
+VALUES
+(
+    'BrightFuture Builders',
+    'A nonprofit focused on improving community infrastructure through sustainable construction projects.',
+    'info@brightfuturebuilders.org',
+    'brightfuture-logo.png'
+),
+(
+    'GreenHarvest Growers',
+    'An urban farming collective promoting food sustainability and education in local neighborhoods.',
+    'contact@greenharvest.org',
+    'greenharvest-logo.png'
+),
+(
+    'UnityServe Volunteers',
+    'A volunteer coordination group supporting local charities and service initiatives.',
+    'hello@unityserve.org',
+    'unityserve-logo.png'
+);
+
 CREATE TABLE Service_Projects (
     project_id SERIAL PRIMARY KEY,
     
@@ -111,3 +137,71 @@ VALUES
  'Helping communities affected by natural disasters.',
  'New Orleans, Louisiana',
  '2026-10-15');
+
+
+ CREATE TABLE Categories (
+    category_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE Project_Categories (
+    project_id INTEGER NOT NULL,
+    category_id INTEGER NOT NULL,
+
+    PRIMARY KEY (project_id, category_id),
+
+    CONSTRAINT fk_project
+        FOREIGN KEY (project_id)
+        REFERENCES Service_Projects(project_id)
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_category
+        FOREIGN KEY (category_id)
+        REFERENCES Categories(category_id)
+        ON DELETE CASCADE
+);
+
+INSERT INTO Categories (name)
+VALUES
+('Community Service'),
+('Education'),
+('Environment');
+
+
+
+INSERT INTO Project_Categories (
+    project_id,
+    category_id
+)
+VALUES
+(1, 1),
+(1, 2),
+
+(2, 1),
+
+(3, 1),
+(3, 3),
+
+(4, 1),
+
+(5, 2),
+
+(6, 3),
+
+(7, 3),
+
+(8, 2),
+
+(9, 1),
+
+(10, 3),
+
+(11, 1),
+
+(12, 2),
+
+(13, 1),
+
+(14, 2),
+
+(15, 3);
