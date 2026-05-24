@@ -35,6 +35,16 @@
         </a>
     </p>
 
+    <p>
+        <strong>Categories:</strong>
+
+        <% categories.forEach((category) => { %>
+            <a href="/category/<%= category.category_id %>">
+                <%= category.category_name %>
+            </a>
+        <% }) %>
+    </p>
+
 </main>
 
 <%- include('partials/footer') %>
