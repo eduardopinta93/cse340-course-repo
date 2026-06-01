@@ -14,7 +14,17 @@ import {showProjectsPage,
     showEditProjectForm, 
     processEditProjectForm, 
     projectValidation} from './controllers/projects.js';
-import { showCategoriesPage, showCategoryDetailsPage, showAssignCategoriesForm, processAssignCategoriesForm } from './controllers/categories.js';
+import {
+    showCategoriesPage,
+    showCategoryDetailsPage,
+    showNewCategoryForm,
+    processNewCategoryForm,
+    showEditCategoryForm,
+    processEditCategoryForm,
+    showAssignCategoriesForm,
+    processAssignCategoriesForm,
+    categoryValidation
+    } from './controllers/categories.js';
 import { testErrorPage } from './controllers/errors.js';
 
 const router = express.Router();
@@ -30,6 +40,12 @@ router.get('/project/:id', showProjectDetailsPage);
 router.get('/categories', showCategoriesPage);
 
 router.get('/category/:id', showCategoryDetailsPage);
+
+// Route for new category page
+router.get('/new-category', showNewCategoryForm);
+
+// Route to display the edit category form
+router.get('/edit-category/:id', showEditCategoryForm);
 
 // error-handling routes
 router.get('/test-error', testErrorPage);
@@ -50,6 +66,12 @@ router.get('/edit-project/:id', showEditProjectForm);
 
 // Routes to handle the assign categories to project form
 router.get('/assign-categories/:projectId', showAssignCategoriesForm);
+
+// Route to handle new category form submission
+router.post('/new-category', categoryValidation, processNewCategoryForm);
+
+// Route to handle the edit category form submission
+router.post('/edit-category/:id', categoryValidation, processEditCategoryForm);
 
 router.post('/assign-categories/:projectId', processAssignCategoriesForm);
 
