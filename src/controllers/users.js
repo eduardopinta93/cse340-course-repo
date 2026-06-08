@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import { createUser, authenticateUser } from '../models/users.js';
+import { createUser, authenticateUser, getAllUsers } from '../models/users.js';
 
 const showUserRegistrationForm = (req, res) => {
     res.render('register', { title: 'Register' });
@@ -73,10 +73,23 @@ const requireLogin = (req, res, next) => {
     next();
 };
 
+//const showDashboard = (req, res) => {
+//    const user = req.session.user;
+//    res.render('dashboard', { 
+//        title: 'Dashboard', 
+//        name: req.session.user.name,
+//        email: req.session.user.email});
+//};
+
 const showDashboard = (req, res) => {
     const user = req.session.user;
-    res.render('dashboard', { title: 'Dashboard', name: req.session.user.name,
-        email: req.session.user.email});
+
+    res.render('dashboard', {
+        title: 'Dashboard',
+        name: user.name,
+        email: user.email,
+        role_name: user.role_name
+    });
 };
 
 /**
@@ -97,12 +110,21 @@ const requireRole = (role) => {
         // Check if user's role matches the required role
         if (req.session.user.role_name !== role) {
             req.flash('error', 'You do not have permission to access this page.');
-            return res.redirect('/');
+            return res.redirect('/dashboard');
         }
 
         // User has required role, continue
         next();
     };
+};
+
+const showUsersPage = async (req, res) => {
+    const users = await getAllUsers();
+
+    res.render('users', {
+        title: 'Registered Users',
+        users
+    });
 };
 
 export { showUserRegistrationForm, 
@@ -112,5 +134,6 @@ export { showUserRegistrationForm,
     processLogout, 
     requireLogin,
     showDashboard,
-    requireRole
+    requireRole,
+    showUsersPage
     };
