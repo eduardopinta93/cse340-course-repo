@@ -34,6 +34,10 @@ import {showUserRegistrationForm,
         showDashboard,
         requireRole,
         showUsersPage} from './controllers/users.js';
+import { 
+    processAddVolunteer, 
+    processRemoveVolunteer 
+} from './controllers/volunteers.js';
 import { testErrorPage } from './controllers/errors.js';
 
 const router = express.Router();
@@ -86,6 +90,10 @@ router.get('/logout', processLogout);
 router.get('/dashboard', requireLogin, showDashboard);
 
 router.get('/users', requireRole('admin'), showUsersPage);
+
+router.post('/project/:id/volunteer', requireLogin, processAddVolunteer);
+
+router.post('/project/:id/remove-volunteer', requireLogin, processRemoveVolunteer);
 
 router.post('/login', processLoginForm);
 
